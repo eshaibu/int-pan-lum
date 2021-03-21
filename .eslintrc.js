@@ -37,5 +37,7 @@ module.exports = {
     "prefer-arrow-callback": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
     "no-console": "warn",
+    "react/button-has-type": "warn",
+    "import/prefer-default-export": "off",
   },
 };
