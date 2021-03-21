@@ -1,14 +1,18 @@
 import React from 'react';
+import { ApolloProvider } from '@apollo/client';
 import { injectGlobal } from '@emotion/css';
-import Header from './header';
-import Products from './products';
+import Header from './components/header';
+import Products from './components/products';
+import { graphqlClient } from './graph';
 
 function App() {
   return (
-    <>
-      <Header />
-      <Products />
-    </>
+    <ApolloProvider client={graphqlClient}>
+      <>
+        <Header />
+        <Products />
+      </>
+    </ApolloProvider>
   );
 }
 

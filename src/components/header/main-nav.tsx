@@ -1,6 +1,6 @@
 import React from 'react';
 import { cartStyle, navStyle } from './header.styles';
-import cartIcon from '../icons/cart-icon.png';
+import cartIcon from '../../icons/cart-icon.png';
 
 const MainNav = () => {
   return (

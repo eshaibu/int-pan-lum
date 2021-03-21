@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { colors, fontSize, spacing } from '../utils/style-helpers';
+import { colors, fontSize, spacing } from '../../utils/style-helpers';
 
 export const header = css`
   display: flex;

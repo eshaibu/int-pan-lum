@@ -1,5 +1,5 @@
 import { css, keyframes } from '@emotion/css';
-import { colors, fontSize, spacing } from '../utils/style-helpers';
+import { colors, fontSize, spacing } from '../../utils/style-helpers';
 
 const rotation = keyframes`
   0% {
@@ -58,6 +58,7 @@ export const productCardStyle = css`
     object-fit: contain;
     max-width: 100%;
     max-height: 110px;
+    flex: 1;
 
     @media screen and (min-width: 480px) {
       max-height: 170px;
