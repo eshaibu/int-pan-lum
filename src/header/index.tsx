@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  filterWrapper,
-  header,
-  logoName,
-  productFilterStyle,
-} from './header.styles';
+import { filterWrapper, header, logoName, productFilterStyle } from './header.styles';
 import MainNav from './main-nav';
 
 const Header = () => {

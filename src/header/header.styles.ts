@@ -8,6 +8,7 @@ export const header = css`
   position: sticky;
   top: 0;
   height: 64px;
+  min-height: 64px;
   padding: ${spacing(0, 5)};
   background-color: ${colors.gray2};
   z-index: 10;
@@ -43,6 +44,7 @@ export const navStyle = css`
 
   .nav-right {
     margin-left: auto;
+    align-items: center;
   }
 `;
 
@@ -63,6 +65,7 @@ export const cartStyle = css`
   ${nakedButton}
   position: relative;
   margin-left: ${spacing(2)};
+  height: 24px;
 
   span {
     position: absolute;

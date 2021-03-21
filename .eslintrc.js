@@ -39,5 +39,8 @@ module.exports = {
     "no-console": "warn",
     "react/button-has-type": "warn",
     "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
   },
 };

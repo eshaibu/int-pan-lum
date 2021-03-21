@@ -2,6 +2,9 @@ export const colors = {
   white: '#ffffff',
   gray1: '#f5f5f4',
   gray2: '#fcfcfa',
+  gray3: '#e2e6e3',
+  greenShade1: '#4b5548',
+  greenShade2: '#2b2e2b',
 };
 
 export const GRID_UNIT = 8;
