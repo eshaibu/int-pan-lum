@@ -3,6 +3,7 @@ import { ApolloProvider } from '@apollo/client';
 import { injectGlobal } from '@emotion/css';
 import Header from './components/header';
 import Products from './components/products';
+// import Cart from './components/cart';
 import { graphqlClient } from './graph';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <>
         <Header />
         <Products />
+        {/* <Cart /> */}
       </>
     </ApolloProvider>
   );
@@ -46,6 +48,6 @@ injectGlobal`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 100%;
   }
 `;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { cartStyle, navStyle } from './header.styles';
-import cartIcon from '../../icons/cart-icon.png';
+import { cartIconStyle, navStyle } from './header.styles';
+import { CartIcon } from '../icons';
 
 const MainNav = () => {
   return (
@@ -12,8 +12,8 @@ const MainNav = () => {
       <ul className="nav-right">
         <li>Account</li>
         <li>
-          <button className={cartStyle} onClick={() => null} type="button">
-            <img src={cartIcon} alt="cart" />
+          <button className={cartIconStyle} onClick={() => null} type="button">
+            <CartIcon />
             <span>2</span>
           </button>
         </li>

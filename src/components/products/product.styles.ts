@@ -1,5 +1,5 @@
 import { css, keyframes } from '@emotion/css';
-import { colors, fontSize, spacing } from '../../utils/style-helpers';
+import { buttonStyle, colors, spacing } from '../../utils/style-helpers';
 
 const rotation = keyframes`
   0% {
@@ -44,7 +44,9 @@ export const loadingStyle = css`
   justify-content: center;
   align-items: center;
 
-  img {
+  svg {
+    width: 64px;
+    height: 64px;
     animation: ${rotation} 1.2s infinite linear;
   }
 `;
@@ -71,27 +73,9 @@ export const productCardStyle = css`
 `;
 
 export const productButtonStyle = css`
-  cursor: pointer;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border: 0;
-  font-size: ${fontSize(14)};
   margin-top: ${spacing(2)};
-  width: 100%;
   max-width: 200px;
-  height: 40px;
-  color: ${colors.white};
-  background-color: ${colors.greenShade1};
-  transition: background-color 150ms ease-out;
-
-  &:hover {
-    background-color: ${colors.greenShade2};
-  }
-
-  @media screen and (min-width: 480px) {
-    height: 52px;
-  }
+  ${buttonStyle};
 
   @media screen and (min-width: 992px) {
     max-width: 170px;

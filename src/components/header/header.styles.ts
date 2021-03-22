@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { colors, fontSize, spacing } from '../../utils/style-helpers';
+import { colors, fontSize, nakedButton, spacing } from '../../utils/style-helpers';
 
 export const header = css`
   display: flex;
@@ -48,20 +48,7 @@ export const navStyle = css`
   }
 `;
 
-export const nakedButton = css`
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: initial;
-  padding: 0;
-
-  &:focus,
-  &:active {
-    outline: none;
-  }
-`;
-
-export const cartStyle = css`
+export const cartIconStyle = css`
   ${nakedButton}
   position: relative;
   margin-left: ${spacing(2)};
@@ -73,8 +60,9 @@ export const cartStyle = css`
     font-size: ${fontSize(12)};
   }
 
-  img {
+  svg {
     width: 24px;
+    height: 24px;
   }
 `;
 

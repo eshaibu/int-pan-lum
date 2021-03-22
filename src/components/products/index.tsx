@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import ProductItem from './product-item';
-import spinnerIcon from '../../icons/spinner-icon.png';
+import { SpinnerIcon } from '../icons';
 import { loadingStyle, productsContainer, productsGridStyle } from './product.styles';
 import { Currency, GetProductsQuery, ProductsProp, ProductVarProp } from '../../graph';
 
@@ -10,14 +10,14 @@ const Products = () => {
     variables: {
       currency: Currency.Usd,
     },
-    fetchPolicy: 'cache-and-network',
+    // fetchPolicy: 'cache-and-network',
   });
 
   return (
     <div className={productsContainer}>
       {loading && (
         <div className={loadingStyle}>
-          <img src={spinnerIcon} alt="spinner loading" />
+          <SpinnerIcon />
         </div>
       )}
       {error && <div>{error.message}</div>}
