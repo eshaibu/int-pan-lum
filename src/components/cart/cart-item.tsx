@@ -14,6 +14,14 @@ const CartItem = ({ cartProduct, productQty }: Props) => {
   const { id: productId } = cartProduct;
   const { cartCurrency: currency, removeItem, updateItemQty } = useCartContext();
 
+  const decrementQty = (id: number) => {
+    if (productQty > 1) {
+      updateItemQty(id, 'DECREMENT');
+    } else {
+      removeItem(id);
+    }
+  };
+
   return (
     <div className={cartItemStyle}>
       <div className="remove-icon">
@@ -24,12 +32,8 @@ const CartItem = ({ cartProduct, productQty }: Props) => {
         <span className="product-title">{cartProduct.title}</span>
         <div className={qtyCounterWrapper}>
           <div className="qty-selector">
-            <button
-              type="button"
-              onClick={() => updateItemQty(productId, 'DECREMENT')}
-              disabled={productQty < 2}
-            >
-              {productQty > 1 && '-'}
+            <button type="button" onClick={() => decrementQty(productId)}>
+              -
             </button>
             <span>{productQty}</span>
             <button type="button" onClick={() => updateItemQty(productId, 'INCREMENT')}>
