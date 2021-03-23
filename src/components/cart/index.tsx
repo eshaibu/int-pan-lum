@@ -15,12 +15,14 @@ import { CurrencyType, GET_CURRENCY } from '../../graph';
 import { RightArrowIcon } from '../icons';
 import CartItem from './cart-item';
 
-const Cart = () => {
+const Cart = ({ productsLoading }: { productsLoading: boolean }) => {
   const { toggleVisibility } = useModalContext();
   const { cartCurrency, cartItems, setCurrency } = useCartContext();
 
   const currencyQuery = useQuery<CurrencyType>(GET_CURRENCY);
   const currencies = currencyQuery.data?.currency ?? [];
+  const loading = productsLoading || currencyQuery.loading;
+  // const totalPrice = cartItems.reduce((acc, cur) => acc + cur.price * cur.count, 0);
 
   const handleCurrencySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
@@ -47,14 +49,17 @@ const Cart = () => {
         )}
         <div className={cartBody}>
           {cartItems.length === 0 && <div className="empty-cart">Cart Empty</div>}
-          {cartItems.map((cartItem) => (
-            <CartItem key={cartItem.productId} cartItem={cartItem} />
-          ))}
+          {!loading &&
+            cartItems.map((cartItem) => <CartItem key={cartItem.productId} cartItem={cartItem} />)}
         </div>
         <div className={cartFooter}>
           <div className={cartSubtotal}>
-            <span>Subtotal</span>
-            <span>{getSymbolFromCurrency(cartCurrency) || `${cartCurrency} `} 78,000.00</span>
+            {!loading && (
+              <>
+                <span>Subtotal</span>
+                <span>{getSymbolFromCurrency(cartCurrency) || `${cartCurrency} `} 78,000.00</span>
+              </>
+            )}
           </div>
           <button type="button" disabled={cartItems.length === 0}>
             PROCEED TO CHECKOUT

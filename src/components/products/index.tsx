@@ -37,7 +37,7 @@ const Products = () => {
           {!loading && data?.products.map((item) => <ProductItem key={item.id} product={item} />)}
         </div>
       </div>
-      {visible && <Cart />}
+      {visible && <Cart productsLoading={loading} />}
     </>
   );
 };

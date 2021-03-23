@@ -35,9 +35,9 @@ const CartItem = ({ cartItem }: Props) => {
             <button
               type="button"
               onClick={() => updateItemQty(productId, 'DECREMENT')}
-              disabled={quantity < 1}
+              disabled={quantity < 2}
             >
-              {quantity > 0 && '-'}
+              {quantity > 1 && '-'}
             </button>
             <span>{quantity}</span>
             <button type="button" onClick={() => updateItemQty(productId, 'INCREMENT')}>
