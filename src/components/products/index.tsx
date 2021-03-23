@@ -34,7 +34,9 @@ const Products = () => {
         )}
         {error && <div>{error.message}</div>}
         <div className={productsGridStyle}>
-          {!loading && data?.products.map((item) => <ProductItem key={item.id} product={item} />)}
+          {data?.products.map((item) => (
+            <ProductItem key={item.id} product={item} />
+          ))}
         </div>
       </div>
       {visible && <Cart productsLoading={loading} />}

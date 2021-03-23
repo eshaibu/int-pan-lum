@@ -16,12 +16,3 @@ export const GET_CURRENCY = gql`
     currency
   }
 `;
-
-export const GET_PRODUCT_FRAGMENT = gql`
-  fragment MyTodo on Product {
-    id
-    title
-    image_url
-    price(currency: $currency)
-  }
-`;
