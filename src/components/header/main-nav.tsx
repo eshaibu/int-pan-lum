@@ -6,6 +6,10 @@ import { CartIcon } from '../icons';
 const MainNav = () => {
   const { toggleVisibility } = useModalContext();
   const { cartItems } = useCartContext();
+  const totalItemsInCart =
+    cartItems?.reduce((acc, cur) => {
+      return acc + cur.quantity;
+    }, 0) ?? '';
 
   return (
     <nav className={navStyle}>
@@ -18,7 +22,7 @@ const MainNav = () => {
         <li>
           <button className={cartIconStyle} onClick={toggleVisibility} type="button">
             <CartIcon />
-            <span>{cartItems.length}</span>
+            <span>{totalItemsInCart}</span>
           </button>
         </li>
       </ul>
