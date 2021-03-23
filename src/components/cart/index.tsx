@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { useModalContext } from '../../contexts/modal-context';
 import {
   cartBody,
@@ -9,11 +10,20 @@ import {
   currencySelect,
   modalBackdrop,
 } from './cart.styles';
+import { CurrencyProp, GetCurrencyQuery } from '../../graph';
 import { RightArrowIcon } from '../icons';
 import CartItem from './cart-item';
 
 const Cart = () => {
+  const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const { toggleVisibility } = useModalContext();
+  const currencyQuery = useQuery<CurrencyProp>(GetCurrencyQuery);
+  const currencies = currencyQuery.data?.currency ?? [];
+
+  const handleCurrencySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target;
+    setSelectedCurrency(value);
+  };
 
   return (
     <div className={modalBackdrop}>
@@ -24,12 +34,15 @@ const Cart = () => {
           </button>
           <span>YOUR CART</span>
         </div>
-        <div className={currencySelect}>
-          <select name="currency">
-            <option>abc</option>
-            <option>bcg</option>
-          </select>
-        </div>
+        {!currencyQuery.loading && (
+          <div className={currencySelect}>
+            <select name="currency" value={selectedCurrency} onChange={handleCurrencySelect}>
+              {currencies.map((currency, index) => (
+                <option key={index}>{currency}</option>
+              ))}
+            </select>
+          </div>
+        )}
         <div className={cartBody}>
           <CartItem />
           <CartItem />

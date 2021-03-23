@@ -4,7 +4,7 @@ import { useModalContext } from '../../contexts/modal-context';
 import ProductItem from './product-item';
 import { SpinnerIcon } from '../icons';
 import { loadingStyle, productsContainer, productsGridStyle } from './product.styles';
-import { Currency, GetProductsQuery, ProductsProp, ProductVarProp } from '../../graph';
+import { GetProductsQuery, ProductsProp, ProductVarProp } from '../../graph';
 import Cart from '../cart';
 
 const Products = () => {
@@ -12,7 +12,7 @@ const Products = () => {
 
   const { error, loading, data } = useQuery<ProductsProp, ProductVarProp>(GetProductsQuery, {
     variables: {
-      currency: Currency.Usd,
+      currency: 'USD',
     },
     // fetchPolicy: 'cache-and-network',
   });
