@@ -1,19 +1,20 @@
 import React from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { injectGlobal } from '@emotion/css';
+import ModalContextProvider from './contexts/modal-context';
 import Header from './components/header';
 import Products from './components/products';
-// import Cart from './components/cart';
 import { graphqlClient } from './graph';
 
 function App() {
   return (
     <ApolloProvider client={graphqlClient}>
-      <>
-        <Header />
-        <Products />
-        {/* <Cart /> */}
-      </>
+      <ModalContextProvider>
+        <>
+          <Header />
+          <Products />
+        </>
+      </ModalContextProvider>
     </ApolloProvider>
   );
 }

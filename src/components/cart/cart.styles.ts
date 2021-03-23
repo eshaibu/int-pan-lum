@@ -58,13 +58,33 @@ export const cartHeader = css`
   }
 `;
 
+export const currencySelect = css`
+  padding: ${spacing(0, 2.5, 2)};
+  max-width: 80px;
+
+  select {
+    padding: ${spacing(1, 2, 1, 1.5)};
+    text-transform: none;
+    background-color: ${colors.white};
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+`;
+
 export const cartBody = css`
-  padding: ${spacing(2.5)};
+  padding: ${spacing(0, 2.5)};
   display: flex;
   flex-direction: column;
   background-color: ${colors.gray1};
   overflow-y: auto;
   flex: 1;
+
+  .empty-cart {
+    text-align: center;
+  }
 `;
 
 export const cartFooter = css`
@@ -90,5 +110,89 @@ export const cartSubtotal = css`
 
   span:last-of-type {
     font-weight: 600;
+  }
+`;
+
+export const cartItemStyle = css`
+  padding: ${spacing(2)};
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  margin-bottom: ${spacing(2.5)};
+  background-color: ${colors.white};
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .remove-icon {
+    cursor: pointer;
+    position: absolute;
+    top: ;
+    right: 1vw;
+  }
+`;
+
+export const productDescription = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 2;
+  font-size: ${fontSize(14)};
+  margin-right: ${spacing(2)};
+
+  .product-title {
+    font-weight: 500;
+  }
+`;
+
+export const qtyCounterWrapper = css`
+  display: flex;
+  flex-wrap: wrap;
+
+  .product-price {
+    margin-left: auto;
+  }
+
+  .qty-selector {
+    margin-right: ${spacing(1)};
+    border: 1px solid ${colors.gray4};
+    display: flex;
+    align-items: center;
+    height: 34px;
+
+    span {
+      padding: ${spacing(0, 1)};
+    }
+
+    button {
+      border: 0;
+      background-color: transparent;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      font-size: ${fontSize(16)};
+      cursor: pointer;
+
+      &:focus,
+      &:active {
+        outline: none;
+        border-radius: 0;
+        border: 0;
+      }
+    }
+  }
+`;
+
+export const productImage = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  img {
+    max-height: 80px;
+    object-fit: contain;
   }
 `;

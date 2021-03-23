@@ -32,7 +32,7 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    "prettier/prettier": ["error", prettierOptions],
+    "prettier/prettier": ["warn", prettierOptions],
     "arrow-body-style": "off",
     "prefer-arrow-callback": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
