@@ -28,12 +28,14 @@ export const cartBox = css`
 `;
 
 export const cartHeader = css`
-  display: flex;
+  display: grid;
   align-items: center;
   padding: ${spacing(2.5)};
 
   button {
     ${nakedButton};
+    grid-column: 1;
+    grid-row: 1;
     border: 1px solid ${colors.greenShade1};
     border-radius: 50%;
     width: 24px;
@@ -50,8 +52,10 @@ export const cartHeader = css`
   }
 
   span {
-    flex: 1;
-    text-align: center;
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
     font-size: ${fontSize(12)};
     color: ${colors.greenShade2};
     font-weight: 500;
@@ -84,6 +88,8 @@ export const cartBody = css`
 
   .empty-cart {
     text-align: center;
+    margin-top: ${spacing(3)};
+    font-weight: 600;
   }
 `;
 
@@ -128,8 +134,13 @@ export const cartItemStyle = css`
   .remove-icon {
     cursor: pointer;
     position: absolute;
-    top: ;
+    top: 4px;
     right: 1vw;
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
   }
 `;
 

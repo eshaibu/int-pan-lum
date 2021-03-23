@@ -1,10 +1,11 @@
 import React from 'react';
-import { useModalContext } from '../../contexts/modal-context';
+import { useCartContext, useModalContext } from '../../contexts';
 import { cartIconStyle, navStyle } from './header.styles';
 import { CartIcon } from '../icons';
 
 const MainNav = () => {
   const { toggleVisibility } = useModalContext();
+  const { cartItems } = useCartContext();
 
   return (
     <nav className={navStyle}>
@@ -17,7 +18,7 @@ const MainNav = () => {
         <li>
           <button className={cartIconStyle} onClick={toggleVisibility} type="button">
             <CartIcon />
-            <span>2</span>
+            <span>{cartItems.length}</span>
           </button>
         </li>
       </ul>

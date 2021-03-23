@@ -1,4 +1,6 @@
 import React from 'react';
+import getSymbolFromCurrency from 'currency-symbol-map';
+import { useCartContext, useModalContext } from '../../contexts';
 import { productButtonStyle, productCardStyle } from './product.styles';
 import { ProductData } from '../../graph';
 
@@ -7,13 +9,24 @@ type Props = {
 };
 
 const ProductItem = ({ product }: Props) => {
-  const { title, price, image_url: imageUrl } = product;
+  const { id, image_url: imageUrl, price, title } = product;
+  const { toggleVisibility } = useModalContext();
+  const { addItem, cartCurrency } = useCartContext();
+
+  const addToCart = () => {
+    addItem(id);
+    toggleVisibility();
+  };
+
   return (
     <div className={productCardStyle}>
       <img src={imageUrl || 'https://via.placeholder.com/220X170'} alt={`product-${title}`} />
       <span className="product-title">{title}</span>
-      <span className="product-price">From ${price}</span>
-      <button type="button" className={productButtonStyle} onClick={() => null}>
+      <span className="product-price">
+        From {getSymbolFromCurrency(cartCurrency) || `${cartCurrency} `}
+        {price}
+      </span>
+      <button type="button" className={productButtonStyle} onClick={addToCart}>
         Add to cart
       </button>
     </div>

@@ -6,14 +6,14 @@ export type ProductData = {
   price: number;
 };
 
-export type ProductsProp = {
+export type ProductsType = {
   products: ProductData[];
 };
 
-export type ProductVarProp = {
+export type ProductVarType = {
   currency: string;
 };
 
-export type CurrencyProp = {
+export type CurrencyType = {
   currency: string[];
 };

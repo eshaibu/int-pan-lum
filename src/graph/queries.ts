@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GetProductsQuery = gql`
+export const GET_PRODUCTS = gql`
   query Products($currency: Currency) {
     products {
       id
@@ -10,8 +10,18 @@ export const GetProductsQuery = gql`
     }
   }
 `;
-export const GetCurrencyQuery = gql`
+
+export const GET_CURRENCY = gql`
   query {
     currency
+  }
+`;
+
+export const GET_PRODUCT_FRAGMENT = gql`
+  fragment MyTodo on Product {
+    id
+    title
+    image_url
+    price(currency: $currency)
   }
 `;

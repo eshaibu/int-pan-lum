@@ -11,7 +11,7 @@ type Props = {
 
 export const ModalContext = createContext<ModalContextType>({} as ModalContextType);
 
-const ModalContextProvider = ({ children }: Props) => {
+export const ModalContextProvider = ({ children }: Props) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   const toggleVisibility = () => setVisible((prevState) => !prevState);
@@ -28,5 +28,3 @@ export const useModalContext = () => {
   }
   return context;
 };
-
-export default ModalContextProvider;

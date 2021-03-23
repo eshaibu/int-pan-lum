@@ -1,21 +1,28 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
-import { useModalContext } from '../../contexts/modal-context';
+import React, { useEffect } from 'react';
+import { useLazyQuery } from '@apollo/client';
+import { useCartContext, useModalContext } from '../../contexts';
+import { loadingStyle, productsContainer, productsGridStyle } from './product.styles';
+import { GET_PRODUCTS, ProductsType, ProductVarType } from '../../graph';
+import { defaultCurrency } from '../../utils/cart';
 import ProductItem from './product-item';
 import { SpinnerIcon } from '../icons';
-import { loadingStyle, productsContainer, productsGridStyle } from './product.styles';
-import { GetProductsQuery, ProductsProp, ProductVarProp } from '../../graph';
 import Cart from '../cart';
 
 const Products = () => {
   const { visible } = useModalContext();
+  const { cartCurrency, setCurrency } = useCartContext();
 
-  const { error, loading, data } = useQuery<ProductsProp, ProductVarProp>(GetProductsQuery, {
-    variables: {
-      currency: 'USD',
-    },
-    // fetchPolicy: 'cache-and-network',
-  });
+  const [getProducts, { error, loading, data }] = useLazyQuery<ProductsType, ProductVarType>(
+    GET_PRODUCTS
+  );
+
+  useEffect(() => {
+    if (cartCurrency) {
+      getProducts({ variables: { currency: cartCurrency } });
+    } else {
+      setCurrency(defaultCurrency);
+    }
+  }, [cartCurrency, setCurrency, getProducts]);
 
   return (
     <>

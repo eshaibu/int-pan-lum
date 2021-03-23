@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
-import { useModalContext } from '../../contexts/modal-context';
+import getSymbolFromCurrency from 'currency-symbol-map';
+import { useCartContext, useModalContext } from '../../contexts';
 import {
   cartBody,
   cartBox,
@@ -10,19 +11,20 @@ import {
   currencySelect,
   modalBackdrop,
 } from './cart.styles';
-import { CurrencyProp, GetCurrencyQuery } from '../../graph';
+import { CurrencyType, GET_CURRENCY } from '../../graph';
 import { RightArrowIcon } from '../icons';
 import CartItem from './cart-item';
 
 const Cart = () => {
-  const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const { toggleVisibility } = useModalContext();
-  const currencyQuery = useQuery<CurrencyProp>(GetCurrencyQuery);
+  const { cartCurrency, cartItems, setCurrency } = useCartContext();
+
+  const currencyQuery = useQuery<CurrencyType>(GET_CURRENCY);
   const currencies = currencyQuery.data?.currency ?? [];
 
   const handleCurrencySelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
-    setSelectedCurrency(value);
+    setCurrency(value);
   };
 
   return (
@@ -34,9 +36,9 @@ const Cart = () => {
           </button>
           <span>YOUR CART</span>
         </div>
-        {!currencyQuery.loading && (
+        {!currencyQuery.loading && cartItems.length > 0 && (
           <div className={currencySelect}>
-            <select name="currency" value={selectedCurrency} onChange={handleCurrencySelect}>
+            <select name="currency" value={cartCurrency} onChange={handleCurrencySelect}>
               {currencies.map((currency, index) => (
                 <option key={index}>{currency}</option>
               ))}
@@ -44,15 +46,19 @@ const Cart = () => {
           </div>
         )}
         <div className={cartBody}>
-          <CartItem />
-          <CartItem />
+          {cartItems.length === 0 && <div className="empty-cart">Cart Empty</div>}
+          {cartItems.map((cartItem) => (
+            <CartItem key={cartItem.productId} cartItem={cartItem} />
+          ))}
         </div>
         <div className={cartFooter}>
           <div className={cartSubtotal}>
             <span>Subtotal</span>
-            <span>NGN 78,000.00</span>
+            <span>{getSymbolFromCurrency(cartCurrency) || `${cartCurrency} `} 78,000.00</span>
           </div>
-          <button type="button">PROCEED TO CHECKOUT</button>
+          <button type="button" disabled={cartItems.length === 0}>
+            PROCEED TO CHECKOUT
+          </button>
         </div>
       </div>
     </div>
