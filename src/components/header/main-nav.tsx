@@ -7,7 +7,7 @@ const MainNav = () => {
   const { toggleVisibility } = useModalContext();
   const { cartItems } = useCartContext();
   const totalItemsInCart =
-    cartItems?.reduce((acc, cur) => {
+    Object.values(cartItems)?.reduce((acc, cur) => {
       return acc + cur.quantity;
     }, 0) ?? '';
 

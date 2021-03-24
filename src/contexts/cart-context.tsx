@@ -13,7 +13,7 @@ import {
 
 type CartContextType = {
   cartCurrency: string;
-  cartItems: CartItemType[];
+  cartItems: { [id: string]: CartItemType };
   setCurrency: (currency: string) => void;
   addItem: (productId: number) => void;
   updateItemQty: (productId: number, type: UpdateCartType) => void;

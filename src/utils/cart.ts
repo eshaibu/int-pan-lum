@@ -5,17 +5,17 @@ export type CartItemType = {
 
 export type CartType = {
   currency: string;
-  items: CartItemType[];
+  items: { [id: string]: CartItemType };
 };
 
 export type UpdateCartType = 'INCREMENT' | 'DECREMENT';
 
-const cartName = 'luminCart';
+const cartName = 'luminCartState';
 export const defaultCurrency = 'USD';
 
 export const defaultCart = {
   currency: '',
-  items: [],
+  items: {},
 };
 
 export const getCartStorage = (): CartType => {
@@ -41,17 +41,14 @@ export const changeCartCurrency = (currency: string) => {
 export const addItemToCart = (data: CartItemType) => {
   try {
     const cart = getCartStorage();
-    const currentItem = cart.items.find((cartItem) => cartItem.productId === data.productId);
-    const updatedCartItems = !currentItem
-      ? [...cart.items, data]
-      : cart.items.map((item) => {
-          if (item.productId === data.productId) {
-            const updateItem = { ...item };
-            updateItem.quantity += 1;
-            return updateItem;
-          }
-          return item;
-        });
+    const currentItem = cart.items[data.productId];
+    let updatedCartItems = { ...cart.items };
+    if (!currentItem) {
+      updatedCartItems = { ...updatedCartItems, [data.productId]: data };
+    } else {
+      const updatedItem = { ...currentItem, quantity: (currentItem.quantity += 1) };
+      updatedCartItems = { ...updatedCartItems, [data.productId]: updatedItem };
+    }
     const updatedCart = JSON.stringify({ ...cart, items: updatedCartItems });
     localStorage.setItem(cartName, updatedCart);
   } catch {
@@ -62,18 +59,14 @@ export const addItemToCart = (data: CartItemType) => {
 export const updateCartItemQty = (productId: number, type: UpdateCartType) => {
   try {
     const cart = getCartStorage();
-    const updatedCartItems = cart.items.map((item) => {
-      if (item.productId === productId) {
-        const updateItem = { ...item };
-        if (type === 'INCREMENT') {
-          updateItem.quantity += 1;
-        } else if (type === 'DECREMENT') {
-          updateItem.quantity -= 1;
-        }
-        return updateItem;
-      }
-      return item;
-    });
+    const currentItem = cart.items[productId];
+    let updatedItem = { ...currentItem };
+    if (currentItem && type === 'INCREMENT') {
+      updatedItem = { ...currentItem, quantity: (currentItem.quantity += 1) };
+    } else if (currentItem && type === 'DECREMENT') {
+      updatedItem = { ...currentItem, quantity: (currentItem.quantity -= 1) };
+    }
+    const updatedCartItems = { ...cart.items, [productId]: updatedItem };
     const updatedCart = JSON.stringify({ ...cart, items: updatedCartItems });
     localStorage.setItem(cartName, updatedCart);
   } catch {
@@ -84,7 +77,7 @@ export const updateCartItemQty = (productId: number, type: UpdateCartType) => {
 export const removeCartItem = (productId: number) => {
   try {
     const cart = getCartStorage();
-    const filteredCart = cart.items?.filter((item) => item.productId !== productId);
+    const { [productId]: omit, ...filteredCart } = cart.items;
     const updatedCart = JSON.stringify({ ...cart, items: filteredCart });
     localStorage.setItem(cartName, updatedCart);
   } catch {

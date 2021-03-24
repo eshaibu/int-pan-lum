@@ -26,17 +26,17 @@ const Cart = ({ productsLoading }: { productsLoading: boolean }) => {
     variables: { currency: cartCurrency },
   });
 
-  const cartProductIds = cartItems.map((item) => item.productId);
+  const cartProductIds = Object.keys(cartItems);
+  const cartItemsLength = cartProductIds.length;
   const cartProducts = cacheProductsQuery?.products.filter((product) =>
-    cartProductIds.includes(product.id)
+    cartProductIds.includes(`${product.id}`)
   );
-  // console.log(cartProducts, 'cartProducts', cartProductIds);
 
   const currencies = currencyQuery.data?.currency ?? [];
   const loading = productsLoading || currencyQuery.loading;
   const totalPrice =
     cartProducts?.reduce((acc, cur) => {
-      const productQty = cartItems.find((item) => item.productId === cur.id)?.quantity ?? 1;
+      const productQty = cartItems[cur.id]?.quantity;
       const price = productQty ? cur.price * productQty : 0;
       return acc + price;
     }, 0) ?? '';
@@ -55,7 +55,7 @@ const Cart = ({ productsLoading }: { productsLoading: boolean }) => {
           </button>
           <span>YOUR CART</span>
         </div>
-        {!currencyQuery.loading && cartItems.length > 0 && (
+        {!currencyQuery.loading && cartItemsLength > 0 && (
           <div className={currencySelect}>
             <select name="currency" value={cartCurrency} onChange={handleCurrencySelect}>
               {currencies.map((currency, index) => (
@@ -65,11 +65,10 @@ const Cart = ({ productsLoading }: { productsLoading: boolean }) => {
           </div>
         )}
         <div className={cartBody}>
-          {cartItems.length === 0 && <div className="empty-cart">Cart Empty</div>}
+          {cartItemsLength === 0 && <div className="empty-cart">Cart Empty</div>}
           {!loading &&
             cartProducts?.map((cartProduct) => {
-              const productQty = cartItems.find((item) => item.productId === cartProduct.id)
-                ?.quantity;
+              const productQty = cartItems[cartProduct.id]?.quantity;
               return productQty ? (
                 <CartItem key={cartProduct.id} cartProduct={cartProduct} productQty={productQty} />
               ) : null;
@@ -87,7 +86,7 @@ const Cart = ({ productsLoading }: { productsLoading: boolean }) => {
               </>
             )}
           </div>
-          <button type="button" disabled={cartItems.length === 0}>
+          <button type="button" disabled={cartItemsLength === 0}>
             PROCEED TO CHECKOUT
           </button>
         </div>
